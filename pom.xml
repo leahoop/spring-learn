@@ -28,22 +28,20 @@
         <druid-spring-boot-starter.version>1.1.10</druid-spring-boot-starter.version>
         <lombok.version>1.18.8</lombok.version>
         <seata.version>0.9.0</seata.version>
+        <openfeign.version>2.2.3.RELEASE</openfeign.version>
     </properties>
 
-    <dependencyManagement>
         <dependencies>
             <!--feign-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-openfeign</artifactId>
+                <version>${openfeign.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
             </dependency>
         </dependencies>
-    </dependencyManagement>
-
-
 
 </project>
