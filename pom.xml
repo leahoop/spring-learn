@@ -11,6 +11,7 @@
     <modules>
         <module>feign-consumer</module>
         <module>feign-producer</module>
+        <module>design-pattern</module>
     </modules>
 
     <parent>
@@ -29,19 +30,42 @@
         <lombok.version>1.18.8</lombok.version>
         <seata.version>0.9.0</seata.version>
         <openfeign.version>2.2.3.RELEASE</openfeign.version>
+        <hutool.version>5.4.2</hutool.version>
     </properties>
 
+    <dependencies>
+        <!--feign-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <dependencyManagement>
+
         <dependencies>
-            <!--feign-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-openfeign</artifactId>
                 <version>${openfeign.version}</version>
             </dependency>
+
+            <!--Hutool Java工具包-->
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
             </dependency>
         </dependencies>
+    </dependencyManagement>
 
 </project>
