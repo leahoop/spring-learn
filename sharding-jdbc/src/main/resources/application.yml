@@ -4,37 +4,31 @@ spring:
   shardingsphere:
     datasource:
       names:
-        master,slave,slave2
-      # 主数据源
-      master:
+        ds0,ds1
+      ds0:
         type: com.alibaba.druid.pool.DruidDataSource
-        driverClassName: com.mysql.jdbc.Driver
+        driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://localhost:3306/python?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
         username: root
         password: root
-      # 从数据源
-      slave:
+      ds1:
         type: com.alibaba.druid.pool.DruidDataSource
-        driverClassName: com.mysql.jdbc.Driver
+        driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://localhost:3307/python?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
         username: root
         password: root
-      slave2:
-        type: com.alibaba.druid.pool.DruidDataSource
-        driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://localhost:3307/python?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
-        username: root
-        password: root
-    masterslave:
-      # 读写分离配置  可选值：ROUND_ROBIN(轮询)，RANDOM（随机）
-      load-balance-algorithm-type: round_robin
-      # 最终的数据源名称
-      name: dataSource
-      # 主库数据源名称
-      master-data-source-name: master
-      # 从库数据源名称列表，多个逗号分隔
-      slave-data-source-names: slave,slave2
-    props:
-      # 开启SQL显示，默认false
-      sql:
-        show: true
+    sharding:
+      tables:
+        t_order:
+          actual-data-nodes: ds$->{0..1}.t_order$->{0..1} # 指定t_order表的数据分布情况，配置数据节点
+          database-strategy:
+            inline:
+              sharding-column: order_id
+              algorithm-expression: ds$->{order_id % 2}
+          table-strategy:
+            inline:
+              sharding-column: user_id
+              algorithm-expression: t_order$->{user_id % 2}
+          keyGenerator:   # 指定t_order表的主键生成策略为SNOWFLAKE
+            type: SNOWFLAKE  #主键生成策略为SNOWFLAKE
+            column: order_id  #指定主键
