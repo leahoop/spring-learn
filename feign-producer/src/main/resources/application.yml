@@ -3,3 +3,12 @@ server:
 spring:
   application:
     name: producer
+  jsckson:
+    time-zone: Asia/Shanghai
+    date-format: yyyy-MM-dd
+    mapper:
+      default_view_inclusion: true
+
+
+pay:
+    type: aliPay
