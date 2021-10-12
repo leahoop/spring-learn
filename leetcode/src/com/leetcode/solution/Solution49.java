@@ -1,36 +1,28 @@
 package com.leetcode.solution;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Solution49 {
 
+    public static void main(String[] args) {
 
-    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> lists = groupAnagrams(new String[]{"", "", ""});
+//        List<List<String>> lists = groupAnagrams(new String[]{"eat", "tea", "tan", "ate", "nat", "bat"});
+        System.out.println(lists.get(0));
 
-        if (strs.length == 0) {
-            return new ArrayList<>();
+    }
+
+
+    public static List<List<String>> groupAnagrams(String[] strs) {
+        // 官方题解
+        Map<String, List<String>> map = new HashMap<>();
+        for (String str: strs) {
+            char[] chars = str.toCharArray();
+            Arrays.sort(chars);
+            map.computeIfAbsent(new String(chars), k -> new ArrayList<>()).add(str);
         }
-
-        if (strs.length == 1) {
-            return new ArrayList(Arrays.asList(strs));
-        }
-
-        for (int i = 0; i < strs.length; i++) {
-            String temp = strs[i];
-            Set set = new HashSet();
-            for (int x = 0; x< temp.length(); x++) {
-
-            }
-
-            for (int j = i+1; j< strs.length; j++) {
-
-
-
-            }
-        }
-
-
-        return null;
+        return new ArrayList<>(map.values());
     }
 
 }
